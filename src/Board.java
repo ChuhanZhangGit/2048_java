@@ -2,7 +2,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class Board extends JPanel implements IBoard {
+public class Board implements IBoard {
   private final int boardRow = 4;
   private final int boardCol = 4;
 
