@@ -1,2 +1,3 @@
 # 2048_java
-This is created when I starting to learn java. It's for exploring my interest in programming and improve my OOP skills.
+This is my first java game! :) 
+I try to use some object orientied design I learned in this game.
