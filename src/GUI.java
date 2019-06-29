@@ -6,12 +6,15 @@ public class GUI {
     IBoard board = new Board();
 
 
+
     frame.add(board.getBoard());
 
     frame.setSize(500, 500); //500 width and 500 height
     frame.setVisible(true); //making the frame visible
     IModel model = new Model(board);
-    model.left(board);
 
+    KeyBinding kB = new KeyBinding(board, model, board.getBoard());
+
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }
 }

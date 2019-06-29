@@ -21,6 +21,11 @@ public class Board implements IBoard {
     }
     tileMatrix[0][3].setTile(ValueEnum.V_2);
     tileMatrix[0][2].setTile(ValueEnum.V_2);
+    tileMatrix[1][3].setTile(ValueEnum.V_4);
+    tileMatrix[1][2].setTile(ValueEnum.V_64);
+
+    tileMatrix[2][3].setTile(ValueEnum.V_64);
+    tileMatrix[2][2].setTile(ValueEnum.V_64);
 
     board.setLayout(new GridLayout(4, 4, 3, 3));
   }
@@ -62,9 +67,23 @@ public class Board implements IBoard {
   }
 
   @Override
-  public boolean isValidMove() {
-    return false;
+  public String boardToString() {
+    String printBoard = "";
+    for (ITile[] tileRow : tileMatrix) {
+      String rowString = "";
+      for (ITile tiles : tileRow) {
+        if (rowString.length() != 0) {
+          rowString +=  " "  + tiles.getEnum().getValue();
+        }
+        else {
+          rowString += tiles.getEnum().getValue();
+        }
+      }
+      printBoard +=  rowString + "\n";
+    }
+    return printBoard;
   }
+
 
   @Override
   public int getBoardRowNum() {

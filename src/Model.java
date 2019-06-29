@@ -167,30 +167,43 @@ public class Model implements IModel {
   public void left(IBoard board) {
     for (int row = 0; row < boardRow; row++) {
       ValueEnum[] enumList = getEnumListRow(row, 0, boardCol - 1, board);
+      System.out.println(board.boardToString());
       moveToLeft(enumList);
+      System.out.println(board.boardToString());
+
       setTileForRow(row, 0, boardRow - 1, enumList, board);
-      mergeToLeft(enumList);
-      setTileForRow(row, 0, boardRow - 1, enumList, board);
-      moveToLeft(enumList);
-      setTileForRow(row, 0, boardRow - 1, enumList, board);
+//      mergeToLeft(enumList);
+//      setTileForRow(row, 0, boardRow - 1, enumList, board);
+//      moveToLeft(enumList);
+//      setTileForRow(row, 0, boardRow - 1, enumList, board);
     }
+  }
+
+  @Override
+  public void up(IBoard board) {
 
   }
 
-//
-//  @Override
-//  public void up() {
-//
-//  }
-//
-//  @Override
-//  public void down(IBoard board) {
-//
-//  }
-//
-//
-//  @Override
-//  public void right(IBoard board) {
-//
-//  }
+  @Override
+  public void down(IBoard board) {
+
+  }
+
+  @Override
+  public void right(IBoard board) {
+    for (int row = 0; row < boardRow; row++) {
+      ValueEnum[] enumList = getEnumListRow(row, boardCol - 1, 0, board);
+      moveToLeft(enumList);
+      setTileForRow(row, boardRow - 1, 0 , enumList, board);
+      mergeToLeft(enumList);
+      setTileForRow(row, boardRow -1, 0, enumList, board);
+      moveToLeft(enumList);
+      setTileForRow(row, boardRow -1, 0, enumList, board);
+    }
+  }
+
+
 }
+
+
+

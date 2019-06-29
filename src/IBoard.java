@@ -31,13 +31,6 @@ public interface IBoard {
   JPanel getBoard();
 
   /**
-   * Is valid move boolean.
-   *
-   * @return the boolean
-   */
-  boolean isValidMove();
-
-  /**
    * Get the board row number.
    * @return the board row number
    */
@@ -49,4 +42,5 @@ public interface IBoard {
    */
   int getBoardColNum();
 
+  String boardToString();
 }
