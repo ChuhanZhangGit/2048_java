@@ -13,8 +13,10 @@ public class KeyBinding {
     this.board = board;
     this.model = model;
     this.frame = frame;
-    keyBinding(frame, KeyEvent.VK_LEFT, "Move Left", (a) -> model.left(board));
+    keyBinding(frame, KeyEvent.VK_LEFT, "Move Left", (evt) -> model.left(board));
     keyBinding(frame, KeyEvent.VK_RIGHT, "Move Right", (evt) -> model.right(board));
+    keyBinding(frame, KeyEvent.VK_UP, "Move Up", (evt) -> model.up(board));
+    keyBinding(frame, KeyEvent.VK_DOWN, "Move Down", (evt) -> model.down(board));
 
   }
 
@@ -24,7 +26,7 @@ public class KeyBinding {
 
     im.put(KeyStroke.getKeyStroke(keyCode, 0, false), actionName);
     am.put(actionName, new AbstractAction() {
-      @Overrid
+      @Override
       public void actionPerformed(ActionEvent e) {
         actionListener.actionPerformed(e);
         System.out.println("performed " + actionName);
@@ -33,17 +35,4 @@ public class KeyBinding {
   }
 
 
-
-//  private void moveLeft(IBoard board, IModel model) {
-//    JPanel pane = new JPanel();
-//    Action test = new AbstractAction() {
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//        model.left(board);
-//      }
-//    };
-//    pane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK), "file");
-//    pane.getActionMap().put("file", test);
-//    this.add(pane);
-//  }
 }

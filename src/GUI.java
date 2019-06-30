@@ -12,7 +12,6 @@ public class GUI {
     frame.setSize(500, 500); //500 width and 500 height
     frame.setVisible(true); //making the frame visible
     IModel model = new Model(board);
-
     KeyBinding kB = new KeyBinding(board, model, board.getBoard());
 
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

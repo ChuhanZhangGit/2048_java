@@ -1,4 +1,7 @@
+import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Model implements IModel {
 
@@ -38,39 +41,6 @@ public class Model implements IModel {
         return null;
     }
   }
-
-//  // Handle empty cell.
-//  private boolean canBeMerged(int fromRow, int fromCol, int toRow, int toCol) {
-//    ValueEnum fromValue = board.getEnumAtPosition(fromRow, fromCol);
-//    ValueEnum toValue = board.getEnumAtPosition(toRow, toCol);
-//    return fromValue == toValue;
-//  }
-//
-//  // Need to handle merge with empty tile to
-//  private void mergeTile(int fromRow, int fromCol, int toRow, int toCol) {
-//    ValueEnum fromValue = board.getEnumAtPosition(fromRow, fromCol);
-//    ValueEnum toValue = board.getEnumAtPosition(toRow, toCol);
-//    board.setTile(toRow, toCol, mergeNum(fromValue));
-//    board.setTile(fromRow, fromCol, ValueEnum.V_0);
-//  }
-//
-//  private void shiftEmptyUp {
-//    for (int i = 0; i < boardCol; i ++) {
-//      for (int j = 0; j < boardRow; j++) {
-//        if (board.getEnumAtPosition(j, i) == ValueEnum.V_0) {
-//          int q = j;
-//          while (q < boardRow) {
-//            if (board.getEnumAtPosition(q, i) != ValueEnum.V_0) {
-//              board.setTile(j, i, board.getEnumAtPosition(q, i));
-//              board.setTile(q, i, ValueEnum.V_0);
-//              break;
-//            }
-//            q++;
-//          }
-//        }
-//      }
-//    }
-//  }
 
   private void moveToLeft(ValueEnum[] EnumList) {
     int arrayLength = EnumList.length;
@@ -134,12 +104,12 @@ public class Model implements IModel {
     ValueEnum[] enumList = new ValueEnum[arrayLength];
     if (fromRow < toRow) {
       for (int i = fromRow; i <= toRow; i++) {
-        enumList[i] = board.getEnumAtPosition(colNum, i);
+        enumList[i] = board.getEnumAtPosition(i, colNum);
       }
     }
     else {
       for (int i = fromRow; i >= toRow; i--) {
-        enumList[fromRow - i] = board.getEnumAtPosition(colNum, i);
+        enumList[fromRow - i] = board.getEnumAtPosition(i, colNum);
       }
     }
     return enumList;
@@ -163,30 +133,68 @@ public class Model implements IModel {
     }
   }
 
-  @Override
-  public void left(IBoard board) {
-    for (int row = 0; row < boardRow; row++) {
-      ValueEnum[] enumList = getEnumListRow(row, 0, boardCol - 1, board);
-      System.out.println(board.boardToString());
-      moveToLeft(enumList);
-      System.out.println(board.boardToString());
-
-      setTileForRow(row, 0, boardRow - 1, enumList, board);
-//      mergeToLeft(enumList);
-//      setTileForRow(row, 0, boardRow - 1, enumList, board);
-//      moveToLeft(enumList);
-//      setTileForRow(row, 0, boardRow - 1, enumList, board);
+  // inclusive.
+  private void setTileForCol(int colNum, int fromRow, int toRow, ValueEnum[] enumList, IBoard board) {
+    if (enumList.length != Math.abs(fromRow - toRow ) + 1) {
+      throw new IllegalArgumentException(String.format
+              ("Operation failed. Col Num %d, fromRow %d, toRow %d", colNum, fromRow, toRow));
+    }
+    if (fromRow < toRow) {
+      for (int i = fromRow; i <= toRow; i++) {
+        board.setTile(i, colNum, enumList[i]);
+      }
+    }
+    else {
+      for (int i = fromRow; i >= toRow; i--) {
+        board.setTile(i, colNum, enumList[fromRow - i]);
+      }
     }
   }
 
   @Override
+  public void left(IBoard board) {
+
+    for (int row = 0; row < boardRow; row++) {
+      ValueEnum[] enumList = getEnumListRow(row, 0, boardCol - 1, board);
+      moveToLeft(enumList);
+
+      setTileForRow(row, 0, boardRow - 1, enumList, board);
+      mergeToLeft(enumList);
+      setTileForRow(row, 0, boardRow - 1, enumList, board);
+      moveToLeft(enumList);
+      setTileForRow(row, 0, boardRow - 1, enumList, board);
+    }
+    generateNewFromEmpty(board);
+  }
+
+  @Override
   public void up(IBoard board) {
+    for (int col = 0; col < boardCol ; col++) {
+      ValueEnum[] enumList = getEnumListCol(col, 0, boardRow - 1, board);
+      moveToLeft(enumList);
+      setTileForCol(col, 0, boardRow - 1, enumList, board);
+      mergeToLeft(enumList);
+      setTileForCol(col, 0, boardRow - 1, enumList, board);
+      moveToLeft(enumList);
+      setTileForCol(col, 0, boardRow - 1, enumList, board);
+    }
+    generateNewFromEmpty(board);
 
   }
 
   @Override
   public void down(IBoard board) {
+    for (int col = 0; col < boardCol ; col++) {
+      ValueEnum[] enumList = getEnumListCol(col, boardRow - 1, 0, board);
+      moveToLeft(enumList);
 
+      setTileForCol(col, boardRow - 1, 0, enumList, board);
+      mergeToLeft(enumList);
+      setTileForCol(col, boardRow - 1, 0, enumList, board);
+      moveToLeft(enumList);
+      setTileForCol(col, boardRow - 1, 0, enumList, board);
+    }
+    generateNewFromEmpty(board);
   }
 
   @Override
@@ -200,6 +208,31 @@ public class Model implements IModel {
       moveToLeft(enumList);
       setTileForRow(row, boardRow -1, 0, enumList, board);
     }
+    generateNewFromEmpty(board);
+  }
+
+  private ArrayList<Point> getEmptyTileList(IBoard board) {
+    ArrayList<Point> emptyTileList = new ArrayList<>();
+    for (int row = 0; row < boardRow; row++) {
+      for (int col = 0; col < boardCol; col++) {
+        if (board.getEnumAtPosition(row, col) == ValueEnum.V_0) {
+          emptyTileList.add(new Point(row, col));
+        }
+      }
+    }
+    return emptyTileList;
+  }
+
+  private void generateNewFromEmpty(IBoard board) {
+    ArrayList<Point> emptyTileList = getEmptyTileList(board);
+    int numEmpty = emptyTileList.size();
+    if ( numEmpty == 0) {
+      return;
+    }
+    Random rand = new Random();
+    Point target = emptyTileList.get(rand.nextInt(numEmpty));
+    ValueEnum numToSet = (rand.nextInt(100) > 30) ? ValueEnum.V_2: ValueEnum.V_4;
+    board.setTile(target.x, target.y, numToSet);
   }
 
 

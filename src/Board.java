@@ -27,7 +27,7 @@ public class Board implements IBoard {
     tileMatrix[2][3].setTile(ValueEnum.V_64);
     tileMatrix[2][2].setTile(ValueEnum.V_64);
 
-    board.setLayout(new GridLayout(4, 4, 3, 3));
+    board.setLayout(new GridLayout(boardRow, boardCol, 3, 3));
   }
 
   /**

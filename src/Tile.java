@@ -10,7 +10,7 @@ public class Tile extends JPanel implements ITile {
   private JPanel tile;
   private JLabel text;
   private ValueEnum valueEnum;
-  private final Font font = new Font("Arial", 1, 20);
+  private final Font font = new Font("Arial", 1, 30);
 
 
   /**
@@ -58,6 +58,7 @@ public class Tile extends JPanel implements ITile {
   public void setTile(ValueEnum valueEnum) {
     tile.setBackground(valueEnum.getBgColor());
     setLabel(text, valueEnum);
+    this.valueEnum = valueEnum;
   }
 
   /**

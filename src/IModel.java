@@ -8,6 +8,4 @@ public interface IModel {
 
   void down(IBoard board);
 
-
-
 }
