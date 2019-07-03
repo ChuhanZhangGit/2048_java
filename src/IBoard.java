@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * The interface Board.
@@ -42,5 +42,9 @@ public interface IBoard {
    */
   int getBoardColNum();
 
+  /**
+   * toString method for the board, it will display board matrix as a string.
+   * @return a string represent the board.
+   */
   String boardToString();
 }

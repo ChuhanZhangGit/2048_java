@@ -1,7 +1,12 @@
-import java.awt.*;
 
-import javax.swing.*;
+import java.awt.GridLayout;
 
+import javax.swing.JPanel;
+
+
+/**
+ * This is a board class, it represent a board in 2048 game.
+ */
 public class Board implements IBoard {
   private final int boardRow = 4;
   private final int boardCol = 4;
@@ -10,6 +15,9 @@ public class Board implements IBoard {
   ITile[][] tileMatrix;
 
 
+  /**
+   * Instantiates a new Board.
+   */
   public Board() {
     tileMatrix = new ITile[boardRow][boardCol];
     for (int i = 0; i < 4; i++) {
@@ -32,8 +40,9 @@ public class Board implements IBoard {
 
   /**
    * Set a tile with ValueEnum.
-   * @param row   the row 0 - 3
-   * @param col   the col 0 - 3
+   *
+   * @param row       the row 0 - 3
+   * @param col       the col 0 - 3
    * @param valueEnum the valueEnum
    */
   @Override
@@ -46,7 +55,8 @@ public class Board implements IBoard {
   }
 
   /**
-   * Get the enum at the position(row, col)
+   * Get the enum at the position(row, col).
+   *
    * @param row the row 0 - 3
    * @param col the col 0 -3
    * @return ValueEnum at the position.
@@ -61,11 +71,22 @@ public class Board implements IBoard {
     return tileMatrix[row][col].getEnum();
   }
 
+  /**
+   * Get JPanel of the board stored in the board object.
+   *
+   * @return a JPanel of the board.
+   */
   @Override
   public JPanel getBoard() {
     return this.board;
   }
 
+  /**
+   * toString method for the board, display board as a matrix with a new line character at the end
+   * of every line. There is a space between every tile. The tile is represented by the number it
+   * stores.
+   * @return board string.
+   */
   @Override
   public String boardToString() {
     String printBoard = "";
@@ -73,23 +94,30 @@ public class Board implements IBoard {
       String rowString = "";
       for (ITile tiles : tileRow) {
         if (rowString.length() != 0) {
-          rowString +=  " "  + tiles.getEnum().getValue();
-        }
-        else {
+          rowString += " " + tiles.getEnum().getValue();
+        } else {
           rowString += tiles.getEnum().getValue();
         }
       }
-      printBoard +=  rowString + "\n";
+      printBoard += rowString + "\n";
     }
     return printBoard;
   }
 
 
+  /**
+   * Get the board total number of rows.
+   * @return The total number of the rows.
+   */
   @Override
   public int getBoardRowNum() {
     return this.boardRow;
   }
 
+  /**
+   * Get the board total number of cols.
+   * @return The total number of the columns.
+   */
   @Override
   public int getBoardColNum() {
     return this.boardCol;

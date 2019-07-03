@@ -1,6 +1,15 @@
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
-public class GUI {
+/**
+ * It's the gui class.
+ */
+public class Main {
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   */
   public static void main(String[] args) {
     JFrame frame = new JFrame("Untitled");
     IBoard board = new Board();
@@ -12,7 +21,7 @@ public class GUI {
     frame.setSize(500, 500); //500 width and 500 height
     frame.setVisible(true); //making the frame visible
     IModel model = new Model(board);
-    KeyBinding kB = new KeyBinding(board, model, board.getBoard());
+    KeyBinding keyB = new KeyBinding(board, model, board.getBoard());
 
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }

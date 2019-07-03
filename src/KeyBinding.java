@@ -1,14 +1,39 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
+
+
+/**
+ * The type Key binding.
+ */
 public class KeyBinding {
+  /**
+   * The Board.
+   */
   IBoard board;
+  /**
+   * The Model.
+   */
   IModel model;
+  /**
+   * The Frame.
+   */
   JComponent frame;
+
+  /**
+   * Instantiates a new Key binding.
+   *
+   * @param board the board
+   * @param model the model
+   * @param frame the frame
+   */
   public KeyBinding(IBoard board, IModel model, JComponent frame) {
     this.board = board;
     this.model = model;
@@ -20,7 +45,18 @@ public class KeyBinding {
 
   }
 
-  public void keyBinding(JComponent component, int keyCode, String actionName, ActionListener actionListener) {
+  /**
+   * Key binding.
+   *
+   * @param component      the component
+   * @param keyCode        the key code
+   * @param actionName     the action name
+   * @param actionListener the action listener
+   */
+  public void keyBinding(JComponent component,
+                         int keyCode,
+                         String actionName,
+                         ActionListener actionListener) {
     InputMap im = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
     ActionMap am = component.getActionMap();
 

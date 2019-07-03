@@ -1,6 +1,4 @@
-
-
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * The interface Tile.
@@ -26,5 +24,10 @@ public interface ITile  {
    */
   JPanel getTile();
 
-
+  /**
+   * Check if this tile is equal to other tile.
+   * @param other other tile
+   * @return true if equal, false otherwise.
+   */
+  boolean equals(ITile other);
 }

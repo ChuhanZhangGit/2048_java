@@ -1,10 +1,11 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
- * The type Tile.
+ * The type Tile. It represent each tile in the 2048 game board.
  */
 public class Tile extends JPanel implements ITile {
   private JPanel tile;
@@ -43,14 +44,13 @@ public class Tile extends JPanel implements ITile {
     if (valueEnum != ValueEnum.V_0) {
       label.setText(Integer.toString(valueEnum.getValue()));
       label.setForeground(valueEnum.getFontColor());
-    }
-    else {
+    } else {
       label.setText("");
     }
   }
 
   /**
-   * Set the tile with value, font color, background colors
+   * Set the tile with value, font color, background colors.
    *
    * @param valueEnum valueEnum for possible value in 2048.
    */
@@ -79,5 +79,16 @@ public class Tile extends JPanel implements ITile {
   @Override
   public JPanel getTile() {
     return this.tile;
+  }
+
+
+  /**
+   * Check if this tile is equal to other tile.
+   * @param other other tile
+   * @return true if equal, false otherwise.
+   */
+  @Override
+  public boolean equals(ITile other) {
+    return this.valueEnum == other.getEnum();
   }
 }
