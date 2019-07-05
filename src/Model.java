@@ -264,6 +264,7 @@ public class Model implements IModel {
         }
       }
     }
+    return true;
   }
 
   /**

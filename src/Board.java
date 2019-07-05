@@ -29,11 +29,11 @@ public class Board implements IBoard {
     }
     tileMatrix[0][3].setTile(ValueEnum.V_2);
     tileMatrix[0][2].setTile(ValueEnum.V_2);
-    tileMatrix[1][3].setTile(ValueEnum.V_4);
-    tileMatrix[1][2].setTile(ValueEnum.V_64);
-
-    tileMatrix[2][3].setTile(ValueEnum.V_64);
-    tileMatrix[2][2].setTile(ValueEnum.V_64);
+//    tileMatrix[1][3].setTile(ValueEnum.V_4);
+//    tileMatrix[1][2].setTile(ValueEnum.V_64);
+//
+//    tileMatrix[2][3].setTile(ValueEnum.V_64);
+//    tileMatrix[2][2].setTile(ValueEnum.V_64);
 
     board.setLayout(new GridLayout(boardRow, boardCol, 3, 3));
   }
